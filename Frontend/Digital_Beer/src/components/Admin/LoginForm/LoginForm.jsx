@@ -1,5 +1,7 @@
 import React from 'react'
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { loginApi } from '../../../api/user'
+import { toast } from 'react-toastify'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
@@ -22,8 +24,14 @@ export function LoginForm() {
         initialValues: initialValues(),
         validateOnChange: false,
         validationSchema: validationSchema,
-        onSubmit: (formValue) => {
-            alert(JSON.stringify(formValue, null, 2));
+        onSubmit: async (formValue) => {
+            try {
+                const response = await loginApi(formValue)
+                const { access } = response
+                console.log(access)
+            } catch (error) {
+                toast.error(error.message)
+            }
         }
     })
 
