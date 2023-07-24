@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react'
-import { setToken, getToken } from '../api/token'
+import { setToken, getToken, deleteToken } from '../api/token'
 import { useUser } from '../hooks/useUser'
 
 export const AuthContext = createContext({
@@ -35,10 +35,17 @@ export function AuthProvider({children}) {
         setAuth({token, me})
     }
 
+    const logout = () => {
+        if(auth){
+            deleteToken()
+            setAuth(null)
+        }
+    }
+
     const valueContext = {
         auth,
         login,
-        logout: () => console.log('cerrando')
+        logout
     }
 
     if(auth === undefined) return null
