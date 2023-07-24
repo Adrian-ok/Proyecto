@@ -21,6 +21,8 @@ const validationSchema = Yup.object().shape({
 
 export function LoginForm() {
 
+    const { login } = useAuth()
+
     const formik = useFormik({
         initialValues: initialValues(),
         validateOnChange: false,
@@ -29,7 +31,7 @@ export function LoginForm() {
             try {
                 const response = await loginApi(formValue)
                 const { access } = response
-                console.log(access)
+                login(access) //SECCION  5 CAP 35
             } catch (error) {
                 toast.error(error.message)
             }
