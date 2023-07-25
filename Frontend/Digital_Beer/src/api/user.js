@@ -43,3 +43,23 @@ export async function getMeApi(token) {
         throw error
     }
 }
+
+//SECCION 6 CAP 43
+export async function getUsersApi(token) {
+    try {
+        const url = `${URL_API}/api/users/`
+        const params ={
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            method: 'GET'
+        }
+
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+        
+    } catch (error) {
+        throw error
+    }
+}
