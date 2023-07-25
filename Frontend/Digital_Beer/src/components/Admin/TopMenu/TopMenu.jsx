@@ -21,14 +21,10 @@ export function TopMenu() {
     }
 
     return (
-        <Navbar fluid className='bg-stone-200'>
-            <Navbar.Brand href="https://flowbite-react.com">
-                <img
-                    alt="Flowbite React Logo"
-                    className="mr-3 h-6 sm:h-9"
-                    src="/cheers.png"
-                />
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+        <Navbar fluid className='bg-stone-300'>
+            <Navbar.Brand href="https://flowbite-react.com" >
+                <img alt="Flowbite React Logo" className="mr-3 h-6 sm:h-9" src="/cheers.png"/>
+                <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-yellow-200">
                     Digital Beer
                 </span>
             </Navbar.Brand>

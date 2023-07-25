@@ -1,6 +1,8 @@
 import React from 'react'
+import { HiUserGroup } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../../hooks'
+import { MENUS } from '../../../utils/constants'
 
 //SECCION 6 CAP 41
 export function SideMenu({ children }) {
@@ -9,50 +11,49 @@ export function SideMenu({ children }) {
     const { auth } = useAuth()
 
     return (
-        <div className='flex flex-row h-screen'>
+        <div className='flex w-full'>
             <Menu pathname={pathname} auth={auth} />
+
             <div className='w-full px-4'>{children}</div>
         </div>
     )
 }
-
-import { Sidebar } from 'flowbite-react';
-import { HiHome, HiTag, HiShoppingBag, HiViewGrid, HiUserGroup } from 'react-icons/hi';
-import { LuHistory } from "react-icons/lu";
 
 function Menu(props) {
 
     const { pathname, auth } = props
 
     return (
-        <Sidebar className='w-96'>
-            <Sidebar.Items className='mt-12'>
-                <Sidebar.ItemGroup>
-                    <Sidebar.Item as={Link} to={'/admin'} active={pathname === '/admin'} icon={HiHome}>
-                        <p>Orders</p>
-                    </Sidebar.Item>
-                    <Sidebar.Item as={Link} to={'/admin/tables'} active={pathname === '/admin/tables'} icon={HiViewGrid}>
-                        <p>Tables</p>
-                    </Sidebar.Item>
-                    <Sidebar.Item as={Link} to={'/admin/categories'} active={pathname === '/admin/categories'} icon={HiTag}>
-                        <p>Categories</p>
-                    </Sidebar.Item>
-                    <Sidebar.Item as={Link} to={'/admin/products'} active={pathname === '/admin/products'} icon={HiShoppingBag}>
-                        <p>Products</p>
-                    </Sidebar.Item>
-                    <Sidebar.Item as={Link} to={'/admin/history-payments'} active={pathname === '/admin/history-payments'} icon={LuHistory}>
-                        <p>History payments</p>
-                    </Sidebar.Item>
-                    {auth.me?.is_staff === true && (
-                        <Sidebar.Item as={Link} to={'/admin/users'} active={pathname === '/admin/users'} icon={HiUserGroup}>
-                            <p>Users</p>
-                        </Sidebar.Item>
-                    )}
-                </Sidebar.ItemGroup>
-            </Sidebar.Items>
-        </Sidebar>
+        < div className='bg-stone-300 w-72 px-4 dark:bg-gray-800 dark:text-white' >
+            <div className='mt-4 flex flex-col gap-4 relative text-xl'>
+                {MENUS?.map((menu, index) => (
+                    <Link
+                        to={menu.link}
+                        className={pathname === menu.link ?
+                        'text-gray-500 flex items-center gap-4 mt-6 dark:text-yellow-100' :
+                        'flex items-center gap-4 mt-6'
+                        }
+                        key={index}
+                    >
+                        <div>{React.createElement(menu?.icon, { size: "24" })}</div>
+                        <p>{menu.name}</p>
+                    </Link>
+                ))}
+                {auth.me?.is_staff === true && (
+                    <div 
+                        className={pathname === '/admin/users' ? 
+                        'text-gray-500 flex items-center gap-4 mt-6 dark:text-yellow-100' : 
+                        'flex items-center gap-4 mt-6' 
+                    }>
+                        <HiUserGroup size={24}/>
+                        <Link to={'/admin/users'}>Users</Link>
+                    </div>
+                )}
+            </div>
+        </div >
     )
 }
+
 
 
 
