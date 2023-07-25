@@ -1,21 +1,27 @@
-import { Dropdown, Navbar, Avatar } from 'flowbite-react';
-import { useAuth } from '../../../hooks'
+import { Dropdown, Navbar, Avatar, DarkThemeToggle } from 'flowbite-react';
+import { useAuth, useDarkMode } from '../../../hooks'
+import { HiMoon, HiSun } from 'react-icons/hi'
 
 export function TopMenu() {
-    
+
     const { auth, logout } = useAuth()
+    const { theme, setTheme } = useDarkMode()
+
+    const changeTheme = () => {
+      setTheme(theme === 'dark' ? 'light' : 'dark')
+    }
 
     const renderName = () => {
-        if(auth.me?.firstName && auth.me?.lastName){
+        if (auth.me?.firstName && auth.me?.lastName) {
             return `${auth.me.firstName} ${auth.me.lastName}`
         }
         else {
             return auth.me?.email
         }
     }
-    
+
     return (
-        <Navbar fluid rounded className='bg-stone-200'>
+        <Navbar fluid className='bg-stone-200'>
             <Navbar.Brand href="https://flowbite-react.com">
                 <img
                     alt="Flowbite React Logo"
@@ -27,9 +33,13 @@ export function TopMenu() {
                 </span>
             </Navbar.Brand>
             <div className="flex md:order-2">
+                {theme === 'dark' ? 
+                    (<DarkThemeToggle onClick={() => changeTheme()} iconLight={HiSun} className='mr-8'/>) : 
+                    (<DarkThemeToggle onClick={() => changeTheme()} iconDark={HiMoon} className='mr-8'/>
+                )}
                 <Dropdown
                     inline
-                    label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />}
+                    label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"/>}
                 >
                     <Dropdown.Header>
                         <span className="block truncate text-sm font-medium">{renderName()}</span>
@@ -40,15 +50,7 @@ export function TopMenu() {
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
                 </Dropdown>
-                <Navbar.Toggle />
             </div>
-            <Navbar.Collapse>
-                <Navbar.Link active href="#"><p>Home</p></Navbar.Link>
-                <Navbar.Link href="#">About</Navbar.Link>
-                <Navbar.Link href="#">Services</Navbar.Link>
-                <Navbar.Link href="#">Pricing</Navbar.Link>
-                <Navbar.Link href="#">Contact</Navbar.Link>
-            </Navbar.Collapse>
         </Navbar>
     )
 }
