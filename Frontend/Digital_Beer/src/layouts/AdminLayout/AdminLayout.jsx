@@ -5,20 +5,19 @@ import { useAuth } from '../../hooks'
 
 export function AdminLayout(props) {
 
-  const {children} = props
-  const {auth} = useAuth()
+  const { children } = props
+  const { auth } = useAuth()
 
-  if(!auth) return <LoginAdmin/>
+  if (!auth) return <LoginAdmin />
 
   return (
     <div>
       <div>
-        <TopMenu/>
+        <TopMenu />
       </div>
 
-      <div>
-        <SideMenu>{children}</SideMenu>
-      </div>
+
+      <SideMenu>{children}</SideMenu>
     </div>
   )
 }
