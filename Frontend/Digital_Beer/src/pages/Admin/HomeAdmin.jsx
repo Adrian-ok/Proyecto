@@ -1,13 +1,14 @@
 import React from 'react'
+import { HeaderPage } from '../../components/Admin'
 import { useAuth } from '../../hooks'
 
 export function HomeAdmin() {
   
-  const { logout } = useAuth()
-
   return (
     <div>
-      Home Admin
+      <HeaderPage title="Orders"/>
+
+      contenido
     </div>
   )
 }

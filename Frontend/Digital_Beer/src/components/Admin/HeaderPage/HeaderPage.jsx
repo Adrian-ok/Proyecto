@@ -6,7 +6,7 @@ export function HeaderPage(props) {
     const { title, btnTitle, btnClick, btnTitleTwo, btnClickTwo } = props
 
     return (
-        <div className='flex w-full justify-between my-4'>
+        <div className='flex w-full justify-around my-4'>
             <h2 className='text-2xl font-semibold'>{title}</h2>
 
             <div className='flex'>

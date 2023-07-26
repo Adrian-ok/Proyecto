@@ -11,7 +11,7 @@ export function SideMenu({ children }) {
     const { auth } = useAuth()
 
     return (
-        <div className='flex w-full'>
+        <div className='flex h-screen w-full'>
             <Menu pathname={pathname} auth={auth} />
 
             <div className='w-full px-4'>{children}</div>

@@ -11,14 +11,14 @@ export function AdminLayout(props) {
   if (!auth) return <LoginAdmin />
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div>
       <div>
         <TopMenu />
       </div>
 
-      <div className='flex flex-1'>
-        <SideMenu>{children}</SideMenu>
-      </div>
+
+      <SideMenu>{children}</SideMenu>
+
     </div>
   )
 }

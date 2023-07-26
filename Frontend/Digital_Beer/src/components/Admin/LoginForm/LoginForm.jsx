@@ -39,9 +39,12 @@ export function LoginForm() {
     })
 
     return (
-        <>
-            <h3 className="text-2xl font-semibold mb-4">Acceder</h3>
-            <form className="flex flex-col gap-4 w-full max-w-sm px-3" onSubmit={formik.handleSubmit}>
+        <div className='w-96 flex flex-col items-center bg-zinc-100 dark:bg-gray-600 p-4 rounded-md'>
+            <h3 className="text-2xl font-bold mb-4">Acceder</h3>
+            <form 
+                className="flex flex-col gap-4 w-full max-w-sm px-3" 
+                onSubmit={formik.handleSubmit}
+            >
                 <div>
                     <Label htmlFor="email1" value="Your email"/>
                     <TextInput
@@ -65,14 +68,14 @@ export function LoginForm() {
                         helperText={<span className='text-red-600'>{formik.errors.password}</span>}
                     />
                 </div>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                     <Checkbox id="remember" />
                     <Label htmlFor="remember"> Remember me </Label>
-                </div>
+                </div> */}
                 <Button type="submit">
                     Submit
                 </Button>
             </form>
-        </>
+        </div>
     )
 }

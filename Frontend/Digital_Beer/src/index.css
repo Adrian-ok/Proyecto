@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.dark {
-    background-color: #5d6d7e  
+body {
+    overflow: hidden;
 }
-/* #808b96  */
+
+.dark {
+    background-color: #5d6d7e; 
+}
