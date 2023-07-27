@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../../hooks'
-import { HeaderPage } from '../../components/Admin'
-import { TableUsers } from '../../components/Admin'
+import { HeaderPage, TableUsers } from '../../components/Admin'
+import { AddEditUserForm } from '../../components/Admin'
 import { ModalBasic } from '../../components/Common'
 import { Spinner } from 'flowbite-react'
 
 export function UsersAdmin() {
     const [show, setShow] = useState(false)
+    const [title, setTitle] = useState(null)
+    const [component, setComponent] = useState(null)
+    const [refresh, setRefresh] = useState(false)
     const { loading, users, getUsers } = useUser()
 
-    useEffect(() => getUsers, [])
-
+    useEffect(() => getUsers, [refresh])
+    const onRefresh = () => setRefresh((prev) => !prev)
     const showOrHide = () => setShow((prevState) => !prevState)
+
+    const AddUser = () => {
+        setTitle('Add User')
+        setComponent(<AddEditUserForm onHide={showOrHide} onRefresh={onRefresh}/>)
+        showOrHide()
+    }
 
     return (
         <div className='h-full'>
-            <HeaderPage title={'Users'} btnTitle={'Nuevo'} btnClick={showOrHide}/>
+            <HeaderPage title={'Users'} btnTitle={'Nuevo'} btnClick={AddUser}/>
 
             {loading ? (
                 <div className='flex flex-col h-full items-center gap-4 text-lg font-semibold'>
@@ -29,7 +38,7 @@ export function UsersAdmin() {
                 <TableUsers users={users} />
             )}
 
-            <ModalBasic show={show} showOrHide={showOrHide} title={'Nuevo Usuario'} children={'contenido'}/>
+            <ModalBasic show={show} showOrHide={showOrHide} title={title} children={component}/>
         </div>
     )
 }
