@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { } from 'flowbite-react'
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useFormik } from 'formik'
@@ -7,16 +7,21 @@ import * as Yup from 'yup'
 
 export function AddEditUserForm(props) {
 
-  const { onHide, onRefresh } = props
-  const { addUser } = useUser()
+  const { onHide, onRefresh, user } = props
+  const { addUser, updateUser } = useUser()
 
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(user),
     validateOnChange: false,
-    validationSchema: newSchema,
+    validationSchema: Yup.object(user ? updateSchema() : newSchema()),
     onSubmit: async (formValue) => {
       try {
-        await addUser(formValue)
+        if(user){
+          await updateUser(user.id, formValue)
+        }
+        else{
+          await addUser(formValue)
+        }
         onRefresh()
         onHide()        
       } catch (error) {
@@ -25,6 +30,10 @@ export function AddEditUserForm(props) {
     }
   })
 
+  useEffect(() => {
+    formik.resetForm()
+    formik.setValues(initialValues(user));
+  }, [user]);
 
   return (
     <form className="space-y-4" onSubmit={formik.handleSubmit}>
@@ -81,26 +90,38 @@ export function AddEditUserForm(props) {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <Button type='submit'>Create User</Button>
+        <Button type='submit'>{user ? 'Update' : 'Create'}</Button>
       </div>
     </form>
   )
 }
 
-function initialValues() {
+function initialValues(user) {
   return {
-    username: '',
-    email: '',
+    username: user?.username || '',
+    email: user?.email || '',
     password: '',
-    is_active: true,
-    is_staff: false
+    is_active: user?.is_active ? true : false,
+    is_staff: user?.is_staff ? true : false
   }
 }
 
-const newSchema = Yup.object().shape({
-  username: Yup.string().required('Campo requerido'),
-  email: Yup.string().email(true).required('Campo requerido'),
-  password: Yup.string().required('Campo requerido'),
-  is_active: Yup.bool().required(true),
-  is_staff: Yup.bool().required(true)
-})
+function newSchema() {
+  return {
+    username: Yup.string().required('Campo requerido'),
+    email: Yup.string().email(true).required('Campo requerido'),
+    password: Yup.string().required('Campo requerido'),
+    is_active: Yup.bool().required(true),
+    is_staff: Yup.bool().required(true)
+  }
+}
+
+function updateSchema() {
+  return {
+    username: Yup.string().required('Campo requerido'),
+    email: Yup.string().email(true).required('Campo requerido'),
+    password: Yup.string(),
+    is_active: Yup.bool().required(true),
+    is_staff: Yup.bool().required(true)
+  }
+}

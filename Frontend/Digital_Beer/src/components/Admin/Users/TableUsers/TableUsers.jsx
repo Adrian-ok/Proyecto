@@ -4,7 +4,7 @@ import { Table, Button } from 'flowbite-react';
 
 export function TableUsers(props) {
 
-  const { users } = props
+  const { users, update, deleteU } = props
 
   return (
     <div className='flex justify-center items-center'>
@@ -23,7 +23,7 @@ export function TableUsers(props) {
               <Table.Cell>{users.email}</Table.Cell>
               <Table.Cell>{users.is_staff ? '✔️' : '❌'}</Table.Cell>
               <Table.Cell>{users.is_active ? '🟢' : '🔴'}</Table.Cell>
-              <Actions/>
+              <Actions updateUser={update} user={users} deleteUser={deleteU}/>
             </Table.Row>
           ))}
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -35,11 +35,14 @@ export function TableUsers(props) {
   )
 }
 
-function Actions() {
+function Actions(props) {
+  
+  const { updateUser, user } = props
+
   return (
     <Table.Cell className='text-lg'>
-      <button className='mr-6'>✏️</button>
-      <button>🗑️</button>
+      <button className='mr-6' onClick={() => updateUser(user)}>✏️</button>
+      <button onClick={() => deleteUser()}>🗑️</button>
     </Table.Cell>
   )
 }

@@ -84,3 +84,23 @@ export async function addUserApi(data, token) {
         throw error
     }
 }  
+
+//SECCION 6 CAP 58
+export async function updateUserApi(id, data, token) {
+    try {
+        const url = `${URL_API}/api/users/${id}/`
+        const params ={
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'PATCH',
+            body: JSON.stringify(data)
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

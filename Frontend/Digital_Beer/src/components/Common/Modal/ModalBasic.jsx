@@ -3,7 +3,7 @@ import { Modal } from 'flowbite-react';
 
 export function ModalBasic(props) {
  
-  const {show, size, title, children, showOrHide} = props
+  const {show, size, title, children, showOrHide, onRefresh} = props
 
   return (
     <Modal show={show} size={size} onClose={() => showOrHide()}>

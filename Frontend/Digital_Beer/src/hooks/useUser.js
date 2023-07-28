@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getMeApi, getUsersApi, addUserApi } from '../api/user'
+import { getMeApi, getUsersApi, addUserApi, updateUserApi } from '../api/user'
 import { useAuth } from '../hooks'
 
 //SECCION  5 CAP 35
@@ -44,10 +44,23 @@ export function useUser() {
         }
     }
 
+    //SECCION 6 CAP 53
+    const updateUser = async (id, data) => {
+        try {
+            setLoading(true)
+            await updateUserApi(id, data, auth.token)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            setError(error)
+        }
+    }
+
     return {
         getMe,
         getUsers,
         addUser,
+        updateUser,
         loading,
         error,
         users
