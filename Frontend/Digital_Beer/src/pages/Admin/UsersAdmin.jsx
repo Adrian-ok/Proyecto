@@ -22,6 +22,20 @@ export function UsersAdmin() {
         showOrHide()
     }
 
+    const updateUser = (data) => {
+        console.log(data)
+        setTitle('Edit User')
+        setComponent(<AddEditUserForm user={data} onHide={showOrHide} onRefresh={onRefresh}/>)
+        showOrHide()
+    }
+
+    const deleteUser = (data) => {
+        const result = window.confirm(`Delete user: ${data.username}`)
+        if(result) {
+            console.log('eliminando')
+        }
+    }
+
     return (
         <div className='h-full'>
             <HeaderPage title={'Users'} btnTitle={'Nuevo'} btnClick={AddUser}/>
@@ -35,10 +49,10 @@ export function UsersAdmin() {
                     <p>Cargando...</p>
                 </div>
             ) : (
-                <TableUsers users={users} />
+                <TableUsers users={users} update={updateUser} deleteU={deleteUser}/>
             )}
 
-            <ModalBasic show={show} showOrHide={showOrHide} title={title} children={component}/>
+            <ModalBasic show={show} showOrHide={showOrHide} title={title} children={component} onRefresh={onRefresh}/>
         </div>
     )
 }
