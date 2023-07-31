@@ -104,3 +104,22 @@ export async function updateUserApi(id, data, token) {
         throw error
     }
 }
+
+//SECCION 6 CAP 59
+export async function deleteUserApi(id, token) {
+    try {
+        const url = `${URL_API}/api/users/${id}/`
+        const params ={
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE',
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

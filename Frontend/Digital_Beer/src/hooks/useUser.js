@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getMeApi, getUsersApi, addUserApi, updateUserApi } from '../api/user'
+import { getMeApi, getUsersApi, addUserApi, updateUserApi, deleteUserApi } from '../api/user'
 import { useAuth } from '../hooks'
 
 //SECCION  5 CAP 35
@@ -56,11 +56,23 @@ export function useUser() {
         }
     }
 
+    const deleteUser = async (id) => {
+        try {
+            setLoading(true)
+            await deleteUserApi(id, auth.token)
+            setLoading(false)
+        } catch (error) {
+            setLoading(false)
+            setError(error)
+        }
+    }
+
     return {
         getMe,
         getUsers,
         addUser,
         updateUser,
+        deleteUser,
         loading,
         error,
         users

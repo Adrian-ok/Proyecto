@@ -10,7 +10,7 @@ export function UsersAdmin() {
     const [title, setTitle] = useState(null)
     const [component, setComponent] = useState(null)
     const [refresh, setRefresh] = useState(false)
-    const { loading, users, getUsers } = useUser()
+    const { loading, users, getUsers, deleteUser } = useUser()
 
     useEffect(() => getUsers, [refresh])
     const onRefresh = () => setRefresh((prev) => !prev)
@@ -29,10 +29,11 @@ export function UsersAdmin() {
         showOrHide()
     }
 
-    const deleteUser = (data) => {
+    const deleteUse = (data) => {
         const result = window.confirm(`Delete user: ${data.username}`)
         if(result) {
-            console.log('eliminando')
+            deleteUser(data.id)
+            onRefresh()
         }
     }
 
@@ -49,7 +50,7 @@ export function UsersAdmin() {
                     <p>Cargando...</p>
                 </div>
             ) : (
-                <TableUsers users={users} update={updateUser} deleteU={deleteUser}/>
+                <TableUsers users={users} update={updateUser} deleteU={deleteUse}/>
             )}
 
             <ModalBasic show={show} showOrHide={showOrHide} title={title} children={component} onRefresh={onRefresh}/>

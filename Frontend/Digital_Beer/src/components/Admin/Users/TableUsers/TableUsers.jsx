@@ -37,12 +37,12 @@ export function TableUsers(props) {
 
 function Actions(props) {
   
-  const { updateUser, user } = props
+  const { updateUser, user, deleteUser } = props
 
   return (
     <Table.Cell className='text-lg'>
       <button className='mr-6' onClick={() => updateUser(user)}>✏️</button>
-      <button onClick={() => deleteUser()}>🗑️</button>
+      <button onClick={() => deleteUser(user)}>🗑️</button>
     </Table.Cell>
   )
 }
