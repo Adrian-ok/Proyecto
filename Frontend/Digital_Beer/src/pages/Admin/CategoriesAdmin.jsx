@@ -1,11 +1,38 @@
-import React from 'react'
-import { HeaderPage } from '../../components/Admin'
+import React, { useEffect, useState } from 'react'
+import { HeaderPage, TableCategory, AddEditCategory } from '../../components/Admin'
+import { useCategory } from '../../hooks'
+import { Loading, ModalBasic } from '../../components/Common'
+
 
 export function CategoriesAdmin() {
-  return (
-    <div>
+  
+  const { getCategories, loading, categories } = useCategory()
+  useEffect(() => getCategories, [])
 
-      <HeaderPage title='Categories' btnTitle='New Category' />
+  const [show, setShow] = useState(false)
+  const [component, setComponent] = useState(null)
+  const [title, setTitle] = useState(null)
+
+  const showOrHide = () => setShow((prevState) => (!prevState))
+
+  const AddCategory = () => {
+    setTitle('Add Category')
+    setComponent(<AddEditCategory/>)
+    showOrHide()
+  }
+  
+  return (
+    <div className='h-full'>
+
+      <HeaderPage title='Categories' btnTitle='New Category' btnClick={AddCategory}/>
+
+      {loading ? (
+        <Loading/>
+      ) : (
+        <TableCategory categories={categories}/>
+      )}
+
+      <ModalBasic show={show} showOrHide={showOrHide} title={title} children={component} />
 
     </div>
   )
