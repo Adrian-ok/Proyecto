@@ -37,6 +37,8 @@ export function UsersAdmin() {
         }
     }
 
+//   const loading = true
+
     return (
         <div className='h-full'>
             <HeaderPage title={'Users'} btnTitle={'Nuevo'} btnClick={AddUser}/>
