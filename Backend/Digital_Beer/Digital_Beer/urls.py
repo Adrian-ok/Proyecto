@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+#SECCION 7 CAP 60
+from django.conf import settings
+from django.conf.urls.static import static
 
 #SECCION 5 CAP 24
 from users.api.router import router_user, urlpatterns
@@ -42,3 +45,6 @@ urlpatterns = [
     path('api/', include(urlpatterns)),
     path('api/', include(router_category.urls)),
 ]
+
+#SECCION 7 CAP 60
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
