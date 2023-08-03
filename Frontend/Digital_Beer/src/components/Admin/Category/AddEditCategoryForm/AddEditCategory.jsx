@@ -1,34 +1,49 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { Button, Label, TextInput } from 'flowbite-react';
 import { MdSubtitles } from 'react-icons/md'
 import { useDropzone } from 'react-dropzone'
+import { toast } from 'react-toastify'
 import { useCategory } from '../../../../hooks'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 export function AddEditCategory(props) {
     
-    const { close, refresh } = props
-    const {addCategory} = useCategory()
+    const { close, refresh, category } = props
+    const {addCategory, updateCategory} = useCategory()
+    const [previewImage, setPreviewImage] = useState(null)
+
+    useEffect(() => {
+        // formik.resetForm()
+        setPreviewImage(category?.image || null)
+        formik.setValues(initialValues(category));
+      }, [category]);
 
     const formik = useFormik({
-        initialValues: initialValues(),
-        validationSchema: Yup.object(newSchema()),
+        initialValues: initialValues(category),
+        validationSchema: Yup.object(category ? updateSchema() : newSchema()),
         validateOnChange: false,
         onSubmit: async (value) => {
             try {
-                await addCategory(value)
+                // if(category) console.log('update', category.id)
+                if(category){
+                    await updateCategory(category.id, value)
+                    toast.success('Update!')
+                } 
+                else{
+                    await addCategory(value)
+                    toast.success('Add!')
+                } 
+                    
                 refresh()
                 close()
             } catch (error) {
-                console.log(error)
+                toast.error(error.message)
             }
         }
     })
     
     //SECCION 7 CAP 62
-    const [previewImage, setPreviewImage] = useState(null)
-
     const onDrop = useCallback( async (acceptedFile) => {
         console.log(acceptedFile)
         const file = acceptedFile[0]
@@ -70,7 +85,7 @@ export function AddEditCategory(props) {
                     className='w-full'
                     {...getRootProps()}
                 >
-                    Select Image
+                    {previewImage ? 'Update image' : 'Select image'}
                 </Button>
                 <input {...getInputProps()} />
             </div>
@@ -78,15 +93,15 @@ export function AddEditCategory(props) {
             <img src={previewImage} className='w-24'/>
 
             <Button type="submit" className='w-full'>
-                Add
+                {category ? 'Update' : 'Add'}
             </Button>
         </form>
     )
 }
 
-function initialValues() {
+function initialValues(data) {
     return{
-        title: '',
+        title: data?.title || '',
         image: ''
     }
 }
@@ -95,5 +110,12 @@ function newSchema() {
     return{
         title: Yup.string().required('Complete este campo'),
         image: Yup.string().required(true)
+    }
+}
+
+function updateSchema() {
+    return{
+        title: Yup.string().required('Complete este campo'),
+        image: Yup.string()
     }
 }

@@ -32,3 +32,42 @@ export async function addCategoryApi(data, token) {
         throw error
     }
 }
+
+export async function updateCategoryApi(id, data, token) {
+    try {
+        const formData = new FormData()
+        formData.append('title', data.title)
+        if(data.image) formData.append('image', data.image)
+
+        const url = `${URL_API}/api/categories/${id}/`
+        const params = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            method: 'PATCH',
+            body: formData
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function deleteCategoryApi(id, token) {
+    try {
+        const url = `${URL_API}/api/categories/${id}/`
+        const params = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            method: 'DELETE',
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
