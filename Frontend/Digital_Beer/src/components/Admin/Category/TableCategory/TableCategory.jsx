@@ -4,7 +4,7 @@ import { map } from 'lodash'
 
 export function TableCategory(props) {
   
-    const { categories } = props
+    const { categories, update, deleteC } = props
   
     return (
         <Table>
@@ -20,7 +20,7 @@ export function TableCategory(props) {
                             <img src={item.image} className='w-14'/>
                         </Table.Cell>
                         <Table.Cell>{item.title}</Table.Cell>
-                        <Actions category={item}/>
+                        <Actions category={item} updateCategory={update} deleteCategory={deleteC}/>
                     </Table.Row>
                 ))}
             </Table.Body>
@@ -29,12 +29,12 @@ export function TableCategory(props) {
 }
 
 function Actions(props) {
-    const { category } = props
+    const { category, updateCategory, deleteCategory } = props
 
     return (
         <Table.Cell className='text-lg'>
-        <button className='mr-6' onClick={() => console.log('update')}>✏️</button>
-        <button onClick={() => console.log('delete')}>🗑️</button>
+        <button className='mr-6' onClick={() => updateCategory(category)}>✏️</button>
+        <button onClick={() => deleteCategory(category)}>🗑️</button>
       </Table.Cell>
     )
 }
