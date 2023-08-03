@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { HeaderPage, TableCategory, AddEditCategory } from '../../components/Admin'
+import { HeaderPage, TableCategory, AddEditCategory, FormMio } from '../../components/Admin'
 import { useCategory } from '../../hooks'
 import { Loading, ModalBasic } from '../../components/Common'
 
@@ -17,6 +17,7 @@ export function CategoriesAdmin() {
 
   const AddCategory = () => {
     setTitle('Add Category')
+    // setComponent(<FormMio close={showOrHide}/>)
     setComponent(<AddEditCategory/>)
     showOrHide()
   }
