@@ -7,18 +7,19 @@ import { Loading, ModalBasic } from '../../components/Common'
 export function CategoriesAdmin() {
   
   const { getCategories, loading, categories } = useCategory()
-  useEffect(() => getCategories, [])
-
   const [show, setShow] = useState(false)
   const [component, setComponent] = useState(null)
   const [title, setTitle] = useState(null)
-
+  const [refresh, setRefresh] = useState(false)
+  
+  useEffect(() => getCategories, [refresh])
   const showOrHide = () => setShow((prevState) => (!prevState))
+  const onRefresh = () => setRefresh((prevState) => !prevState)
 
   const AddCategory = () => {
     setTitle('Add Category')
-    // setComponent(<FormMio close={showOrHide}/>)
-    setComponent(<AddEditCategory/>)
+    // setComponent(<FormMio close={showOrHide} refresh={onRefresh}/>)
+    setComponent(<AddEditCategory close={showOrHide} refresh={onRefresh}/>)
     showOrHide()
   }
   

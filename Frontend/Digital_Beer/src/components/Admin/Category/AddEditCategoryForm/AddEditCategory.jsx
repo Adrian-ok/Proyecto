@@ -2,17 +2,27 @@ import React, { useCallback, useState } from 'react'
 import { Button, Label, TextInput } from 'flowbite-react';
 import { MdSubtitles } from 'react-icons/md'
 import { useDropzone } from 'react-dropzone'
+import { useCategory } from '../../../../hooks'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
-export function AddEditCategory() {
+export function AddEditCategory(props) {
     
+    const { close, refresh } = props
+    const {addCategory} = useCategory()
+
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(newSchema()),
         validateOnChange: false,
-        onSubmit: (value) => {
-            console.log(value)
+        onSubmit: async (value) => {
+            try {
+                await addCategory(value)
+                refresh()
+                close()
+            } catch (error) {
+                console.log(error)
+            }
         }
     })
     
@@ -20,10 +30,10 @@ export function AddEditCategory() {
     const [previewImage, setPreviewImage] = useState(null)
 
     const onDrop = useCallback( async (acceptedFile) => {
+        console.log(acceptedFile)
         const file = acceptedFile[0]
         await formik.setFieldValue('image', file)
         setPreviewImage(URL.createObjectURL(file))
-        console.log(acceptedFile)
     },[])
     
     const {getRootProps, getInputProps} = useDropzone({

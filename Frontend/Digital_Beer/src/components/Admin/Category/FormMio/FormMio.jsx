@@ -1,10 +1,12 @@
 import React from 'react';
 import {useFormik } from 'formik';
 import { Button, Label, TextInput, FileInput } from 'flowbite-react';
+import { useCategory } from '../../../../hooks'
 import * as Yup from 'yup';
 
 export function FormMio(props) {
-  const {close} = props
+  const {close, refresh} = props
+  const { addCategory } = useCategory()
 
   // Funciones para initialValues y validationSchema
   const initialValues = () => ({
@@ -19,11 +21,16 @@ export function FormMio(props) {
     });
   };
 
-  const onSubmitHandler = (values, {resetForm}) => {
+  const onSubmitHandler = async (values, {resetForm}) => {
     // Aquí puedes manejar la lógica de envío de datos
-    console.log(values);
-    close()
-    resetForm()
+    try {
+      await addCategory(values)
+      resetForm()
+      refresh()
+      close()
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   // Declarar useFormik fuera del return
