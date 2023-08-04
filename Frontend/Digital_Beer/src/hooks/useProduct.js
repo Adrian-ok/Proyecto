@@ -9,8 +9,8 @@ export function useProduct() {
         try {
             setLoading(true)
             const result = await getProductsApi()
-            setProducts(result)
             setLoading(false)
+            setProducts(result)
         } catch (error) {
             setLoading(false)
         }
