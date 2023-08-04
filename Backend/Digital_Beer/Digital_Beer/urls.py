@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
 #SECCION 7 CAP 60
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,6 +26,8 @@ from django.conf.urls.static import static
 #SECCION 5 CAP 24
 from users.api.router import router_user, urlpatterns
 from categories.api.router import router_category
+from products.api.router import router_product
+
 schema_view = get_schema_view(
    openapi.Info(
       title="Digital-Beer API",
@@ -44,6 +47,7 @@ urlpatterns = [
     path('api/', include(router_user.urls)),
     path('api/', include(urlpatterns)),
     path('api/', include(router_category.urls)),
+    path('api/', include(router_product.urls)),
 ]
 
 #SECCION 7 CAP 60
