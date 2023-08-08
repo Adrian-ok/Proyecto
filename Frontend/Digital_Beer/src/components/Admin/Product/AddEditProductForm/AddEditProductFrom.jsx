@@ -148,7 +148,7 @@ function initialValues(product) {
     title: product?.title || '',
     price: product?.price || '',
     category: product?.category || 1,
-    active: product.active ? true : false
+    active: product?.active ? true : false
   }
 }
 
