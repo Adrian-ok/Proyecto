@@ -5,7 +5,7 @@ import { NUM_PAGINATION } from '../../../../utils/constants'
 import { map } from 'lodash'
 
 export function TableProductAdmin(props) {
-  const { products } = props
+  const { products, update } = props
   const [page, setPage] = useState(0)
   const [cont, setCont] = useState(1)
 
@@ -45,7 +45,7 @@ export function TableProductAdmin(props) {
               <Table.Cell>$ {item.price}</Table.Cell>
               <Table.Cell>{item.category_title}</Table.Cell>
               <Table.Cell>{item.active ? '🟢' : '🔴'}</Table.Cell>
-              <Actions />
+              <Actions product={item} updateProduct={update}/>
             </Table.Row>
           ))}
         </Table.Body>
@@ -57,9 +57,10 @@ export function TableProductAdmin(props) {
 }
 
 function Actions(props) {
+  const {product, updateProduct} = props
   return (
     <Table.Cell className='text-lg'>
-      <button className='mr-6' onClick={() => console.log('update')}>✏️</button>
+      <button className='mr-6' onClick={() => updateProduct(product)}>✏️</button>
       <button onClick={() => console.log('delete')}>🗑️</button>
     </Table.Cell>
   )

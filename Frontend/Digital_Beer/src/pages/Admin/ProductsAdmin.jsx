@@ -7,14 +7,22 @@ export function ProductsAdmin() {
   const { getProducts, loading, products } = useProduct()
   const [show, setShow] = useState(false)
   const [title, setTitle] = useState(null)
+  const [refresh, setRefresh] = useState(false)
   const [component, setComponent] = useState(null)
 
-  useEffect(() => getProducts, [])
+  useEffect(() => getProducts, [refresh])
   const showOrHide = () => setShow((prev) => !prev)
+  const onRefresh = () => setRefresh((prevState) => !prevState)
 
   const addProduct = () => {
     setTitle('Add Product')
-    setComponent(<AddEditProductFrom />)
+    setComponent(<AddEditProductFrom close={showOrHide} refresh={onRefresh}/>)
+    showOrHide()
+  }
+
+  const updateProduct = (data) => {
+    setTitle('Edit Product')
+    setComponent(<AddEditProductFrom close={showOrHide} refresh={onRefresh} product={data}/>)
     showOrHide()
   }
 
@@ -26,7 +34,7 @@ export function ProductsAdmin() {
         <Loading />
       ) : (
         <>
-          <TableProductAdmin products={products} />
+          <TableProductAdmin products={products} update={updateProduct}/>
         </>
       )}
 
