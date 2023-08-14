@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Table } from 'flowbite-react';
 import { Pagination } from '../../../../components/Common'
+import { NUM_PAGINATION } from '../../../../utils/constants'
 import { map } from 'lodash'
 
 export function TableProductAdmin(props) {
@@ -8,16 +9,17 @@ export function TableProductAdmin(props) {
   const [page, setPage] = useState(0)
   const [cont, setCont] = useState(1)
 
+
   const nextPage = () => {
-    if(products.length > page + 6){
-      setPage(page + 6)
+    if(products.length > page + NUM_PAGINATION){
+      setPage(page + NUM_PAGINATION)
       setCont(cont + 1)
     }
   }
 
   const prevPage = () => {
     if(page > 0){
-      setPage(page - 6)
+      setPage(page - NUM_PAGINATION)
       setCont(cont - 1)
     }
   }
@@ -34,7 +36,7 @@ export function TableProductAdmin(props) {
           <Table.HeadCell>Actions</Table.HeadCell>
         </Table.Head>
         <Table.Body>
-          {map(products?.slice(page, page + 6), (item, index) => (
+          {map(products?.slice(page, page + NUM_PAGINATION), (item, index) => (
             <Table.Row key={index} className='bg-white text-center dark:border-gray-700 dark:bg-gray-800'>
               <Table.Cell className='flex justify-center'>
                 <img src={item.image} className='w-10' />
