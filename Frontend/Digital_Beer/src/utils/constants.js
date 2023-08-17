@@ -12,3 +12,5 @@ export const MENUS = [
     { name: 'Categories', link: '/admin/categories', icon: HiTag },
     { name: 'History Payments', link: '/admin/history-payments', icon: LuHistory },
 ]
+
+export const NUM_PAGINATION = 4
