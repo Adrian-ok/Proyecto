@@ -26,6 +26,13 @@ export function ProductsAdmin() {
     showOrHide()
   }
 
+  const deleteProduct = (data) => {
+    const option = window.alert(`Delete ${data.title}?`)
+    if(option){
+      
+    }
+  }
+
   return (
     <div className='h-full'>
       <HeaderPage title='Products' btnTitle='Add Product' btnClick={addProduct}/>
@@ -34,7 +41,7 @@ export function ProductsAdmin() {
         <Loading />
       ) : (
         <>
-          <TableProductAdmin products={products} update={updateProduct}/>
+          <TableProductAdmin products={products} update={updateProduct} deleteP={deleteProduct}/>
         </>
       )}
 

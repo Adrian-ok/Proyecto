@@ -5,7 +5,7 @@ import { Table, Checkbox, Label } from 'flowbite-react'
 import { map } from 'lodash'
 
 export function TableProductAdmin(props) {
-  const { products, update } = props
+  const { products, update, deleteP } = props
   const [page, setPage] = useState(0)
   const [cont, setCont] = useState(1)
   const [filters, setFilters] = useState({ category: '', nameProduct: '', disable: false })
@@ -99,7 +99,11 @@ export function TableProductAdmin(props) {
               <Table.Cell>{parseFloat(item.price).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 })}</Table.Cell>
               <Table.Cell>{item.category_title}</Table.Cell>
               <Table.Cell>{item.active ? '🟢' : '🔴'}</Table.Cell>
+<<<<<<< HEAD
               <Actions product={item} updateProduct={update} />
+=======
+              <Actions product={item} updateProduct={update} deleteProduct={deleteP}/>
+>>>>>>> d5f475b844a7a65b4c520bb27e6cf8da84bcc97f
             </Table.Row>
           ))}
         </Table.Body>
@@ -111,11 +115,15 @@ export function TableProductAdmin(props) {
 }
 
 function Actions(props) {
+<<<<<<< HEAD
   const { product, updateProduct } = props
+=======
+  const {product, updateProduct, deleteProduct} = props
+>>>>>>> d5f475b844a7a65b4c520bb27e6cf8da84bcc97f
   return (
     <Table.Cell className='text-lg'>
       <button className='mr-6' onClick={() => updateProduct(product)}>✏️</button>
-      <button onClick={() => console.log('delete')}>🗑️</button>
+      <button onClick={() => deleteProduct(product)}>🗑️</button>
     </Table.Cell>
   )
 }
