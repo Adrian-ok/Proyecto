@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 export function AddEditProductFrom(props) {
 
   const { close, refresh, product } = props
-  const { addProducts } = useProduct()
+  const { addProducts, updateProducts } = useProduct()
   const { categories, getCategories } = useCategory()
   const [previewImage, setPreviewImage] = useState(null)
   const [categoryFormat, setCategoryFormat] = useState([])
@@ -36,8 +36,12 @@ export function AddEditProductFrom(props) {
     onSubmit: async (values) => {
       console.log(values)
       try {
-        await addProducts(values) 
-        
+        if(product){
+          await updateProducts(product.id, values)
+        }
+        else{
+          await addProducts(values) 
+        }
         refresh()
         close()
       } catch (error) {

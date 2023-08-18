@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { HeaderPage, TableProductAdmin, AddEditProductFrom, } from '../../components/Admin'
+import { HeaderPage, TableProductAdmin, AddEditProductFrom } from '../../components/Admin'
 import { Loading, ModalBasic } from '../../components/Common'
+import React, { useEffect, useState } from 'react'
 import { useProduct } from '../../hooks'
 
 export function ProductsAdmin() {

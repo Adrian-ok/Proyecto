@@ -35,3 +35,28 @@ export async function addProductsApi(data, token) {
         throw error
     }
 }
+
+export async function updateProductsApi(id, data, token) {
+    try {
+        const formData = new FormData()
+        if(data.image) formData.append('image', data.image)
+        formData.append('title', data.title)
+        formData.append('price', data.price)
+        formData.append('active', data.active)
+        formData.append('category', data.category)
+
+        const url = `${URL_API}/api/products/${id}/`
+        const params = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            method: 'PATCH',
+            body: formData
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}
