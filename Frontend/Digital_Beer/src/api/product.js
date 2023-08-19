@@ -60,3 +60,20 @@ export async function updateProductsApi(id, data, token) {
         throw error
     }
 }
+
+export async function deleteProductsApi(id, token) {
+    try {
+        const url = `${URL_API}/api/products/${id}/`
+        const params = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            method: 'DELETE',
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        throw error
+    }
+}

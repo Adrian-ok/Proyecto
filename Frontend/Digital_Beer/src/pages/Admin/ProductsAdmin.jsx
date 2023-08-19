@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useProduct } from '../../hooks'
 
 export function ProductsAdmin() {
-  const { getProducts, loading, products } = useProduct()
+  const { getProducts, deleteProducts, loading, products } = useProduct()
   const [show, setShow] = useState(false)
   const [title, setTitle] = useState(null)
   const [refresh, setRefresh] = useState(false)
@@ -27,9 +27,10 @@ export function ProductsAdmin() {
   }
 
   const deleteProduct = (data) => {
-    const option = window.alert(`Delete ${data.title}?`)
+    const option = window.confirm(`Delete ${data.title}?`)
     if(option){
-      
+      deleteProducts(data.id)
+      onRefresh()
     }
   }
 

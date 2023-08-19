@@ -42,13 +42,9 @@ export function TableProductAdmin(props) {
       .filter((item) => !filters.disable || filters.disable === !item.active)
   }
 
-  // result = products
-  //   .filter((item) => !filters.nameProduct || item.title.toLowerCase().includes(filters.nameProduct.toLocaleLowerCase()))
-
   return (
     <>
       <div className='flex flex-row gap-6 mb-4'>
-        {/* <input value={filters.category} onChange={(e) => handleFilterChange('category', e.target.value)} type='text' placeholder='Category' /> */}
         <select
           defaultValue={''}
           className='rounded-lg'
@@ -99,11 +95,7 @@ export function TableProductAdmin(props) {
               <Table.Cell>{parseFloat(item.price).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 })}</Table.Cell>
               <Table.Cell>{item.category_title}</Table.Cell>
               <Table.Cell>{item.active ? '🟢' : '🔴'}</Table.Cell>
-<<<<<<< HEAD
-              <Actions product={item} updateProduct={update} />
-=======
-              <Actions product={item} updateProduct={update} deleteProduct={deleteP}/>
->>>>>>> d5f475b844a7a65b4c520bb27e6cf8da84bcc97f
+              <Actions product={item} updateProduct={update} deleteProduct={deleteP} />
             </Table.Row>
           ))}
         </Table.Body>
@@ -115,11 +107,7 @@ export function TableProductAdmin(props) {
 }
 
 function Actions(props) {
-<<<<<<< HEAD
-  const { product, updateProduct } = props
-=======
-  const {product, updateProduct, deleteProduct} = props
->>>>>>> d5f475b844a7a65b4c520bb27e6cf8da84bcc97f
+  const { product, updateProduct, deleteProduct } = props
   return (
     <Table.Cell className='text-lg'>
       <button className='mr-6' onClick={() => updateProduct(product)}>✏️</button>
