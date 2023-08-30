@@ -95,7 +95,11 @@ export function TableProductAdmin(props) {
               <Table.Cell>{parseFloat(item.price).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 })}</Table.Cell>
               <Table.Cell>{item.category_title}</Table.Cell>
               <Table.Cell>{item.active ? '🟢' : '🔴'}</Table.Cell>
+<<<<<<< HEAD
               <Actions product={item} updateProduct={update} />
+=======
+              <Actions product={item} updateProduct={update} deleteProduct={deleteP} />
+>>>>>>> f08e51c162fb426ad3aac071defc57ab6b405f27
             </Table.Row>
           ))}
         </Table.Body>
@@ -107,7 +111,11 @@ export function TableProductAdmin(props) {
 }
 
 function Actions(props) {
+<<<<<<< HEAD
   const { product, updateProduct } = props
+=======
+  const { product, updateProduct, deleteProduct } = props
+>>>>>>> f08e51c162fb426ad3aac071defc57ab6b405f27
   return (
     <Table.Cell className='text-lg'>
       <button className='mr-6' onClick={() => updateProduct(product)}>✏️</button>
