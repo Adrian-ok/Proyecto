@@ -16,6 +16,7 @@ export function AddEditTable(props) {
         onSubmit: async (val) => {
             try {
                 await addTable(val)
+                // console.log(val)
                 refresh()   
                 close()             
             } catch (error) {
