@@ -14,3 +14,8 @@ export const MENUS = [
 ]
 
 export const NUM_PAGINATION = 4
+
+export const ORDER_STATE = {
+    PENDING: 'PENDING',
+    DELIVERED: 'DELIVERED'
+}
